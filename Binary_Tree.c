@@ -112,18 +112,17 @@ void binary_tree_deletion_call(ROOT *root, int key) {
         printf("No root found, no node deleted.");
         return;
     }
+    binary_tree_deletion(root->root, int key);
 }
 
 NODE *find_min_value_child(NODE* node) { 
-    NODE* current = node; 
-
-    while (current && current->left != NULL) 
-        current = current->left; 
-  
-    return current; 
+    NODE *aux = node; 
+    while (aux && aux->left) 
+        aux = aux->left; 
+    return aux; 
 } 
   
-NODE* binary_tree_deletion(NODE *node, int key) { 
+NODE *binary_tree_deletion(NODE *node, int key) { 
     if (root == NULL){
         printf("Node not found, no node deleted.");
         return;
