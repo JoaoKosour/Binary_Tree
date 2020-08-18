@@ -15,9 +15,9 @@
 //so it would "harder" to do with strings or structs for example, 
 //however you can put an id for comparing, but keep in mind
 //having a extra int just for this will take 4 bytes per node createad
-typedef struct node {
+typedef struct NODE {
     int id;
-    struct node *left, *right;  //left is <, right is >
+    struct NODE *left, *right;  //left is <, right is >
 } NODE;
 
 
@@ -107,5 +107,50 @@ void binary_tree_insertion(ROOT *root, int key){
 *                 D E L E T I O N                      *
 *                                                      *
 ********************************************************/
+void binary_tree_deletion_call(ROOT *root, int key) {
+    if(!root){
+        printf("No root found, no node deleted.");
+        return;
+    }
+}
 
+NODE *find_min_value_child(NODE* node) { 
+    NODE* current = node; 
 
+    while (current && current->left != NULL) 
+        current = current->left; 
+  
+    return current; 
+} 
+  
+NODE* binary_tree_deletion(NODE *node, int key) { 
+    if (root == NULL){
+        printf("Node not found, no node deleted.");
+        return;
+    } 
+  
+    if(key < root->key) 
+        root->left = binary_tree_deletion(root->left, key); 
+  
+
+    else if(key > root->key) 
+        root->right = binary_tree_deletion(root->right, key); 
+  
+    else { 
+        if (!root->left) { 
+            NODE *temp = root->right; 
+            free(root); 
+            return temp; 
+        } 
+        else if (!root->right) { 
+            NODE *temp = root->left; 
+            free(root); 
+            return temp; 
+        } 
+  
+        NODE *temp = find_min_value_child(root->right); 
+        root->key = temp->key; 
+        root->right = binary_tree_deletion(root->right, temp->key); 
+    } 
+    return root; 
+} 
